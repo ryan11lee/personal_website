@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.datawithryan.com"
+        }
+      ],
+      "destination": "https://datawithryan.com/",
+      "permanent": true
+    }
+  ]
+}
