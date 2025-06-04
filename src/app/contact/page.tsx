@@ -32,8 +32,8 @@ const contactInfo = [
   },
   {
     title: 'LinkedIn',
-    value: 'ryan11lee11',
-    href: 'https://www.linkedin.com/in/ryan11lee11/',
+    value: 'ryan11lee',
+    href: 'https://www.linkedin.com/in/ryan11lee/',
     icon: (
       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
         <path
