@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ryan Lee - Personal Website
 
-## Getting Started
+A modern, responsive personal website built with Next.js, TypeScript, and Tailwind CSS, featuring a Mac-OS-like design aesthetic.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with custom Mac-OS-inspired theme
+- **Fonts**: SF Pro Display system fonts
+- **Deployment**: Vercel (planned)
+- **Analytics**: Plausible (planned)
+
+## ✨ Features
+
+- **Modern Design**: Clean, minimalist Mac-OS-like interface with translucency effects
+- **Responsive**: Mobile-first design that works on all devices
+- **Performance**: Optimized for speed with Next.js static generation
+- **SEO Ready**: Structured metadata, Open Graph tags, and sitemap
+- **Accessibility**: WCAG AA compliant
+- **Type Safe**: Full TypeScript implementation
+- **Code Quality**: ESLint, Prettier, and Husky pre-commit hooks
+
+## 🛠️ Development
+
+### Prerequisites
+
+- Node.js 20+
+- npm or pnpm
+
+### Getting Started
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd personal_website
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+### Available Scripts
+
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Run ESLint with auto-fix
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+- `npm run type-check` - Run TypeScript type checking
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── globals.css        # Global styles and theme
+│   ├── layout.tsx         # Root layout with metadata
+│   └── page.tsx           # Home page
+├── components/
+│   ├── layout/            # Layout components
+│   │   ├── navbar.tsx     # Navigation bar
+│   │   └── footer.tsx     # Footer
+│   └── ui/                # Reusable UI components
+├── lib/
+│   └── utils.ts           # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Design System
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The website uses a Mac-OS-inspired design system with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Colors**: System colors with light/dark mode support
+- **Typography**: SF Pro Display font family
+- **Effects**: Backdrop blur for glass morphism
+- **Spacing**: Consistent spacing scale
+- **Borders**: Subtle borders with proper contrast
 
-## Learn More
+## 🚀 Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is configured for deployment on Vercel:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Connect to Vercel**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   vercel
+   ```
 
-## Deploy on Vercel
+2. **Set environment variables** (when needed)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - `RESEND_API_KEY` - For contact form emails
+   - `PLAUSIBLE_DOMAIN` - For analytics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Custom domain** (planned)
+   - datawithryan.com
+
+## 🔧 Configuration
+
+- **ESLint**: Configured with Next.js recommended rules
+- **Prettier**: Code formatting with consistent style
+- **Husky**: Pre-commit hooks for code quality
+- **TypeScript**: Strict mode enabled
+- **Tailwind**: Custom theme with Mac-OS colors
+
+## 📝 License
+
+This project is for personal use. All rights reserved.

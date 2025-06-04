@@ -1,103 +1,123 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { SectionHeading } from '@/components/ui/section-heading'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      {/* Hero Section */}
+      <section className="text-center py-20">
+        <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6">
+          Ryan Lee
+        </h1>
+        <h2 className="text-xl sm:text-2xl text-muted-foreground mb-8">
+          Senior Data Scientist
+        </h2>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
+          Passionate about machine learning, multivariate time series data
+          analysis, and building impactful solutions with Python, R, and SQL.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-accent-foreground bg-accent hover:bg-accent/90 rounded-lg transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            View My Work
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium text-foreground border border-border hover:bg-muted rounded-lg transition-colors"
           >
-            Read our docs
-          </a>
+            Get In Touch
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Skills Section */}
+      <section className="py-16">
+        <SectionHeading
+          title="Technical Expertise"
+          description="Specialized in data science, machine learning, and time series analysis"
+          className="mb-12"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle>Programming Languages</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">Python, R, SQL</p>
+            </CardContent>
+          </Card>
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle>ML Libraries</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Scikit-learn, TensorFlow, NumPy, Pandas
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle>Specialization</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                Multivariate Time Series Analysis
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Featured Projects Preview */}
+      <section className="py-16">
+        <SectionHeading
+          title="Featured Projects"
+          description="Explore my latest work in machine learning and data analysis"
+          className="mb-12"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                Utilizing Autoencoders For Anomaly Detection
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                Advanced machine learning approach for identifying anomalies in
+                complex datasets using autoencoder neural networks.
+              </p>
+              <Link
+                href="/projects"
+                className="text-accent hover:text-accent/80 transition-colors inline-flex items-center"
+              >
+                Learn more →
+              </Link>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Exploration of Dynamic Time Warping</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                Deep dive into DTW algorithms for time series analysis and
+                pattern matching applications.
+              </p>
+              <Link
+                href="/projects"
+                className="text-accent hover:text-accent/80 transition-colors inline-flex items-center"
+              >
+                Learn more →
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
