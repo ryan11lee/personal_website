@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Learn more about Ryan Lee, Senior Data Scientist with expertise in machine learning, time series analysis, and Python development.',
+    'Learn more about Ryan Lee, Staff Data Scientist with expertise in machine learning, time series analysis, and Python development.',
 }
 
 const skills = [
@@ -40,7 +40,7 @@ const skills = [
 
 const experience = [
   {
-    title: 'Senior Data Scientist',
+    title: 'Staff Data Scientist',
     company: 'Current Role',
     period: 'Present',
     description:
