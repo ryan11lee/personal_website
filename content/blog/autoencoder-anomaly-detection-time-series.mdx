@@ -1,0 +1,168 @@
+---
+title: "Utilizing Autoencoders for Anomaly Detection in Time Series Data"
+description: "Developing an anomaly detection model for fermentation processes using autoencoders to distinguish genuine anomalies from normal variations, reducing false alarms in biopharmaceutical manufacturing."
+date: "2024-12-04"
+published: true
+tags: ["machine-learning", "anomaly-detection", "time-series", "autoencoders", "biopharmaceuticals", "neural-networks"]
+author:
+  name: "Ryan Lee"
+---
+
+# Utilizing Autoencoders for Anomaly Detection in Time Series Data
+
+## Project Overview
+
+Using data from Kaggle's "Big Data Biopharmaceutical Manufacturing" dataset, I developed an anomaly detection model designed explicitly for fermentation processes. Fermentation data is characterized by being a time series, exhibiting specific trends that may include occasional spikes considered normal behavior during a successful run. However, many automated tools often flag these spikes as errors, leading to false alarms.
+
+## The Challenge
+
+The challenges in anomaly detection within fermentation manufacturing are multifaceted:
+
+1. False Positive Problem
+Fermentation run data is a collection of time series with inherent trends and occasional spikes considered normal during successful runs. However, automated tools may misinterpret these spikes as errors, leading to unnecessary alarms and disruptions in the production workflow. Hence, distinguishing genuine anomalies from expected variations becomes a critical task.
+
+2. Complex Control Logic
+The control logic during fermentation is often difficult to discern, making it challenging to differentiate between a run that deviates from the expected trend and one that is being correctly controlled. Moreover, the length of time points in fermentation runs may vary, introducing complexities in data preprocessing and model training.
+
+3. High Stakes Environment
+The significance of accurate anomaly detection in fermentation manufacturing cannot be overstated, as false positives could cause data to be ignored when it was valuable and expensive to produce. By leveraging autoencoders, we can distinguish between normal variations and genuine anomalies, reducing false alarms and ensuring prompt actions when deviations warrant intervention.
+
+## Solution Approach
+
+To address these challenges and unlock the full potential of anomaly detection in biopharmaceutical manufacturing, we explore the application of autoencoders. Autoencoders, a type of neural network, offer a powerful unsupervised learning approach to learn efficient data codings and reconstruct the original trend from the data. By comparing the reconstructed time series with the actual time series, we can identify and quantify discrepancies, providing us with a basis for detecting anomalies.
+
+This anomaly detection model offers an effective solution for identifying anomalies in fermentation processes, enabling better decision-making and reducing false alarms caused by normal variations in the data.
+
+## Exploratory Data Analysis
+
+Control logic during fermentation is challenging to discern when a run is deviating vs. being controlled correctly, so we built a model that can be fit to understand the expected trends vs. deviations.
+
+After downloading the data, we began some exploratory data analysis.
+
+### Data Length Variability
+
+One common thing with fermentation data is a similar but variable length of time for each run, or the length of time points is variable. We ensured that anything not within two standard deviations of the mean was removed from the potential pool of training data, as this method relies on the training runs being labeled as "good" runs.
+
+Additionally, we looked at the data distribution for each column, examining the min/max values and ensuring visually that the data was not skewed or seemed problematic.
+
+### Trend Analysis
+
+Utilizing a quick ipywidget, we could identify trends with each label and ensure each group appeared similar:
+
+```python
+import ipywidgets as widgets
+ 
+variable_plot_selection = widgets.Dropdown(
+    options=variable_list, 
+    value='Penicillin concentration(P:g/L)'
+)
+variable_plot_selection
+```
+
+For this analysis, we focused on Penicillin, as this is the target molecule and provided the most evidence that a deviation was present in the data.
+
+### Penicillin Plotted by Reference Category
+
+As evident in the plots, the recipe and operator had runs with lower performance that did not follow the average trend. Given a large number of runs and the need to separate runs into "good," we used an unsupervised learning approach to see what clusters were present in the time series.
+
+## Labeling Runs
+
+Given the listed conditions in the dataset, we selected a k of 4; the scree plot suggested 2 clusters were sufficient, but it only separated one gross outlier. With 4 clusters, there was good separation even though clusters 0, 1, 2 were very close.
+
+After dynamic time-warping K-means clustering, we found that 4 clusters were ideal for the data. **Cluster 2 represented the most ideal trend**, and the remaining clusters represented other trends with reduced performance of penicillin production.
+
+## Building an AutoEncoder
+
+Autoencoders are a type of neural network designed for unsupervised learning, aiming to learn efficient data codings by compressing the input data into a lower-dimensional representation. In the context of anomaly detection in time series data, autoencoders play a pivotal role in capturing the normal patterns and variations present in the data.
+
+### How Autoencoders Work for Anomaly Detection
+
+- **Encoding Process**: Maps the input data into a compressed representation
+- **Decoding Process**: Reconstructs the original input from this representation
+- **Training**: The autoencoder learns to minimize the reconstruction error
+- **Anomaly Detection**: Identifies anomalies that deviate significantly from the learned patterns
+
+By leveraging autoencoders, we can distinguish between normal trends and genuine anomalies in fermentation processes, offering a robust solution for accurate anomaly detection in the fermentation manufacturing industry.
+
+Now that we had labeled data, we considered all runs in cluster 2 to be performant and what we wanted to train the model on. The reason is that while there is valuable data in the other clustered runs, we wanted to train the model on the ideal runs, as including anomalous runs in the encoder would allow the model to recreate incorrect trends. If an end client identified other runs to be of interest or considered normal, we would add those into the model, but for this analysis, we only considered the ideal runs, or "Golden" runs.
+
+## Data Preparation for Model
+
+First, we built a series of functions to enable easy data prep for the model:
+
+### Data Preprocessing Steps
+
+1. **Maximum Size Determination**: We determined the maximum size of the dataset to ensure equal lengths for the model output
+2. **Zero Padding**: We padded the data with 0's to ensure that the model could learn the trends. The choice of 0's was because if a run is terminated, the probes would no longer be reading data and would be 0
+3. **Single Variable Focus**: The demonstration model was a single variable model for Dissolved oxygen concentration (DO2:mg/L)
+
+### Model Input Format
+
+Following this initial data prep, we prepared the data for the model:
+- **Normalization**: We normalized the data to ensure consistent scaling
+- **3D Reshaping**: Data was reshaped to be in a 3D format where:
+  - First dimension: number of samples
+  - Second dimension: number of time steps  
+  - Third dimension: number of features
+
+### Model Architecture
+
+With the transformed data, we fit the model. The encoder and decoder had the same shapes, and the model was sequential. The model was trained on the "Golden" runs, and then we tested the model on the other runs to evaluate performance.
+
+### Outlier Detection Threshold
+
+To determine an "outlier" run, we plotted the model's error on the training data. After observing the distribution of the loss function, we determined a threshold value for the loss function. The model outputs a reconstructed error value that we used to determine if a run is an outlier and account for the noise in the training data.
+
+We considered runs above **3 standard deviations above the mean** to be outliers. This is a conservative approach, and we could adjust this to be more or less conservative depending on the needs of the client.
+
+## Results
+
+After training the model, we examined examples of the model's performance and demonstrated the value of visualizing the error.
+
+### Example 1: Normal Run
+- **Error**: 0.02 (within 3 standard deviations of the mean)
+- **Classification**: Good run
+- **Model Performance**: The model could predict the trend well
+
+### Example 2: Anomalous Run  
+- **MAE Score**: 1.0
+- **Classification**: Anomalous and considered an outlier
+- **Expert Validation**: A subject matter expert would also identify this as an outlier
+
+The visualization of the error helps end users decide if the anomaly is worth investigating or if it's a run to be ignored.
+
+### Practical Applications
+
+Once we have these scores, we can apply a variety of techniques:
+
+1. **Batch Processing**: For completed runs, we can automatically classify runs that should be flagged or ignored in our data processing pipeline
+2. **Real-time Monitoring**: With additional work and infrastructure, we can build the model to work in real-time and flag anomalous runs as they occur
+3. **Cost Savings**: This provides a valuable tool for end users to identify and investigate potentially anomalous runs in real-time, **saving thousands of dollars per run**
+
+## Conclusion
+
+### Strengths
+
+Autoencoders work well with complex time series and provide interpretable and useful outputs for scientists to explore potential reasons a fermentation run was anomalous.
+
+Key advantages include:
+- **Fast Training**: The model was relatively fast to train, providing Data Scientists with easy-to-optimize models
+- **Efficient Deployment**: API calls against the model can be fast and efficient
+- **Interpretable Results**: Scientists can understand and act on the model's outputs
+
+### Limitations
+
+The downsides of this model include:
+- **Specificity to "Golden" Runs**: A client would need to provide a set of labeled runs that a model can be trained on
+- **Manufacturing Focus**: One of the best use cases is in manufacturing or scale-up spaces where the process is consistent
+- **Process Development Challenges**: In process development environments, given limited tank capacity, building a model for every process change could be problematic
+
+### Future Value
+
+However, the model provides a valuable tool for scientists to explore data and offers helpful analysis capabilities for end users. Additionally, if deployed in a production environment, the model can flag anomalous runs and provide useful insights for data-driven decision making.
+
+As the fermentation industry continues to rely on time series data for critical processes, the utilization of autoencoders holds immense promise for enhancing productivity and product quality. By providing interpretable and actionable insights, autoencoders pave the way for a more efficient and reliable biopharmaceutical manufacturing landscape, driving innovation and advancements in this vital domain.
+
+---
+
+*This project demonstrates the practical application of machine learning in industrial settings, where the cost of false positives and missed anomalies can be substantial. The autoencoder approach provides a balance between sensitivity and specificity that's crucial for real-world deployment.*

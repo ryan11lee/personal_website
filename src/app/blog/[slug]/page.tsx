@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-// We'll render MDX content directly since we're using @next/mdx
+import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getBlogPost, getAllBlogPosts } from '@/lib/blog'
 
 interface Props {
@@ -106,8 +106,8 @@ export default async function BlogPostPage({ params }: Props) {
       </header>
 
       {/* Article Content */}
-      <div className="prose prose-lg dark:prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      <div className="prose">
+        <MDXRemote source={post.content} />
       </div>
 
       {/* Article Footer */}
