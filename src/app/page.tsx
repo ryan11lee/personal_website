@@ -11,7 +11,7 @@ export default function Home() {
           Ryan Lee
         </h1>
         <h2 className="text-xl sm:text-2xl text-muted-foreground mb-8">
-          Senior Data Scientist
+          Staff Data Scientist
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
           Passionate about machine learning, multivariate time series data

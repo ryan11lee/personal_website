@@ -38,7 +38,7 @@ export function Footer() {
           <div className="space-y-3">
             <h3 className="text-lg font-semibold text-foreground">Ryan Lee</h3>
             <p className="text-sm text-muted-foreground">
-              Senior Data Scientist passionate about machine learning, time
+              Staff Data Scientist passionate about machine learning, time
               series analysis, and building impactful solutions.
             </p>
           </div>

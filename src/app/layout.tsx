@@ -5,11 +5,11 @@ import { Footer } from '@/components/layout/footer'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Ryan Lee - Senior Data Scientist',
+    default: 'Ryan Lee - Staff Data Scientist',
     template: '%s | Ryan Lee',
   },
   description:
-    'Senior Data Scientist passionate about machine learning, time series analysis, and building impactful solutions.',
+    'Staff Data Scientist passionate about machine learning, time series analysis, and building impactful solutions.',
   keywords: [
     'Ryan Lee',
     'Data Scientist',
@@ -25,15 +25,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://datawithryan.com',
     siteName: 'Data With Ryan',
-    title: 'Ryan Lee - Senior Data Scientist',
+    title: 'Ryan Lee - Staff Data Scientist',
     description:
-      'Senior Data Scientist passionate about machine learning, time series analysis, and building impactful solutions.',
+      'Staff Data Scientist passionate about machine learning, time series analysis, and building impactful solutions.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ryan Lee - Senior Data Scientist',
+    title: 'Ryan Lee - Staff Data Scientist',
     description:
-      'Senior Data Scientist passionate about machine learning, time series analysis, and building impactful solutions.',
+      'Staff Data Scientist passionate about machine learning, time series analysis, and building impactful solutions.',
   },
   robots: {
     index: true,

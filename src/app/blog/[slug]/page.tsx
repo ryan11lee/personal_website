@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div>
             <p className="font-medium text-foreground">{post.author.name}</p>
             <p className="text-sm text-muted-foreground">
-              Senior Data Scientist
+              Staff Data Scientist
             </p>
           </div>
         </div>
